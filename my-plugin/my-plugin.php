@@ -26,7 +26,7 @@
  */
 function My_Plugin_activate()
 {
-    echo "hi";
+    // echo "hi";
 }
 
 register_activation_hook(__FILE__, 'My_Plugin_activate');
@@ -38,7 +38,39 @@ register_activation_hook(__FILE__, 'My_Plugin_activate');
  */
 function My_Plugin_deactivate()
 {
-    echo "bye";
+    // echo "bye";
 }
 
 register_deactivation_hook(__FILE__, 'My_Plugin_deactivate');
+
+/**
+ * Undocumented function
+ *
+ * @param mixed $arg1 first
+ * @param mixed $arg2 second
+ * 
+ * @return void
+ */
+function Example_callback( $arg1, $arg2 )
+{
+    echo $arg1.' '.$arg2;
+}
+add_action('example_action', 'Example_callback', 10, 2);
+
+/**
+ * Undocumented function
+ *
+ * @param mixed $arg1 first
+ * 
+ * @return void
+ */
+function Example2_callback( $arg1 )
+{
+    echo $arg1;
+}
+add_action('example_action', 'Example2_callback', 10, 1);
+
+remove_action('example_action', 'Example2_callback', 10);
+
+do_action('example_action', '123', 'abc', '1234');
+// do_action('example_action', '12', 'ab');
