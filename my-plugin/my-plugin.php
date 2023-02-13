@@ -80,7 +80,7 @@ remove_action('example_action', 'Example2_callback', 10);
 add_filter(
     'my_tag', 
     function ($arg) {
-        echo 'just<br />';
+        echo "just $arg <br />";
         return $arg . '!';
     }
 );
@@ -88,25 +88,28 @@ add_filter(
 add_action(
     'my_tag', 
     function ($arg) {
-        echo 'another just <br />';
-        return $arg;
+        echo "another just $arg <br />";
+        return $arg . '|';
     }
 );
 
 // here filter and action bechaves like same.
 // echo apply_filters('my_tag', 'nothing') . '<br />';
-// echo do_action('my_tag') . '<br />';
+echo do_action('my_tag') . '<br />';
 
 // all
 
-add_action(
-    'all',
-    function ( $hook ) {
-        echo '<br /> run: ' . $hook . '<br />';
-    }
-);
+// cab be use for quick hook debugging
+// add_action(
+//     'all',
+//     function ( $hook ) {
+//         echo '<br /> run: ' . $hook . '<br />';
+//     }
+// );
 
-do_action('my_tag', 'Hello');
+// do_action('my_tag', 'Hello');
+
+
 
 
 /**
