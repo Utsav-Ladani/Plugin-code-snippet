@@ -124,7 +124,7 @@ function Check_gettext($translated_text, $text, $text_domin)
 {
     return $translated_text . '-<br />';
 }
-add_filter('gettext', 'Check_gettext', 10, 3);
+// add_filter('gettext', 'Check_gettext', 10, 3);
 
 // output: text-<br />
 // echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin'); 
@@ -144,7 +144,7 @@ function Check_Gettext_With_context($translated_text, $text, $context, $text_dom
 {
     return $translated_text . '=<br />';
 }
-add_filter('gettext_with_context', 'Check_Gettext_With_context', 10, 4);
+// add_filter('gettext_with_context', 'Check_Gettext_With_context', 10, 4);
 
 // output: text=<br />
 // echo apply_filters(
@@ -158,7 +158,7 @@ add_filter('gettext_with_context', 'Check_Gettext_With_context', 10, 4);
 // alloption
 
 // print_r(get_alloptions());
-echo get_alloptions()['admin_email'] . '<br />';
+// echo get_alloptions()['admin_email'] . '<br />';
 
 /**
  * Override the options
@@ -172,9 +172,23 @@ function My_Alloptions_filter($alloptions)
     $alloptions['admin_email'] = 'temp@email.com';
     return $alloptions;
 }
-add_filter('alloptions', 'My_Alloptions_filter');
+// add_filter('alloptions', 'My_Alloptions_filter');
 
-echo get_alloptions()['admin_email'] . '<br />';
+// echo get_alloptions()['admin_email'] . '<br />';
+// echo wp_load_alloptions()['admin_email'] . '<br />';
+
+/**
+ * Check How Many Times Alloptions run
+ *
+ * @return void
+ */
+function Check_How_Many_Times_Alloptions_run()
+{
+    static $count = 0;
+    $count++;
+    echo 'Run: ' . $count . '<br />';
+}
+add_action('alloptions', 'Check_How_Many_Times_Alloptions_run', 10, 0);
 
 
 /**
@@ -187,4 +201,4 @@ function hello()
     die("Do you like death");
 }
 
-hello();
+// hello();
