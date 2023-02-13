@@ -127,7 +127,7 @@ function Check_gettext($translated_text, $text, $text_domin)
 add_filter('gettext', 'Check_gettext', 10, 3);
 
 // output: text-<br />
-echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin'); 
+// echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin'); 
 
 /**
  * Add the '=' and break at the end of each text. 
@@ -147,13 +147,34 @@ function Check_Gettext_With_context($translated_text, $text, $context, $text_dom
 add_filter('gettext_with_context', 'Check_Gettext_With_context', 10, 4);
 
 // output: text=<br />
-echo apply_filters(
-    'gettext_with_context', 
-    '10 Comments', 
-    '10 Comments', 
-    'Comments', 
-    'my-plugin'
-); 
+// echo apply_filters(
+//     'gettext_with_context', 
+//     '10 Comments', 
+//     '10 Comments', 
+//     'Comments', 
+//     'my-plugin'
+// ); 
+
+// alloption
+
+// print_r(get_alloptions());
+echo get_alloptions()['admin_email'] . '<br />';
+
+/**
+ * Override the options
+ *
+ * @param array $alloptions all options
+ * 
+ * @return array
+ */
+function My_Alloptions_filter($alloptions)
+{
+    $alloptions['admin_email'] = 'temp@email.com';
+    return $alloptions;
+}
+add_filter('alloptions', 'My_Alloptions_filter');
+
+echo get_alloptions()['admin_email'] . '<br />';
 
 
 /**
