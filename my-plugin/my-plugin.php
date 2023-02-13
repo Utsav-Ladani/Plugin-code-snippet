@@ -112,11 +112,11 @@ add_action(
 // Hooks: gettext vs gettext_with_context
 
 /**
- * Undocumented function
+ * Add the '-' and break at the end of each text
  *
- * @param [type] $translated_text translated text 
- * @param [type] $text            text
- * @param [type] $text_domin      text domain
+ * @param [string] $translated_text translated text 
+ * @param [string] $text            text
+ * @param [string] $text_domin      text domain
  * 
  * @return string
  */
@@ -126,7 +126,34 @@ function Check_gettext($translated_text, $text, $text_domin)
 }
 add_filter('gettext', 'Check_gettext', 10, 3);
 
-echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin');
+// output: text-<br />
+echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin'); 
+
+/**
+ * Add the '=' and break at the end of each text. 
+ * It's used to chagne the text with context
+ *
+ * @param [string] $translated_text translated text 
+ * @param [string] $text            text
+ * @param [string] $context         context
+ * @param [string] $text_domin      text domain
+ * 
+ * @return string
+ */
+function Check_Gettext_With_context($translated_text, $text, $context, $text_domin)
+{
+    return $translated_text . '=<br />';
+}
+add_filter('gettext_with_context', 'Check_Gettext_With_context', 10, 4);
+
+// output: text=<br />
+echo apply_filters(
+    'gettext_with_context', 
+    '10 Comments', 
+    '10 Comments', 
+    'Comments', 
+    'my-plugin'
+); 
 
 
 /**
