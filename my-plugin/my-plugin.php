@@ -72,5 +72,39 @@ add_action('example_action', 'Example2_callback', 10, 1);
 
 remove_action('example_action', 'Example2_callback', 10);
 
-do_action('example_action', '123', 'abc', '1234');
+// do_action('example_action', '123', 'abc', '1234');
 // do_action('example_action', '12', 'ab');
+
+// Filters
+
+add_filter(
+    'my_tag', 
+    function ($arg) {
+        echo 'just<br />';
+        return $arg . '!';
+    }
+);
+
+add_action(
+    'my_tag', 
+    function ($arg) {
+        echo 'another just <br />';
+        return $arg;
+    }
+);
+
+// here filter and action bechaves like same.
+echo apply_filters('my_tag', 'nothing') . '<br />';
+echo do_action('my_tag') . '<br />';
+
+/**
+ * Used to view output
+ *
+ * @return void
+ */
+function hello()
+{
+    die("Do you like death");
+}
+
+hello();
