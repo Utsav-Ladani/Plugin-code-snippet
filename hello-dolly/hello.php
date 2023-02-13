@@ -54,12 +54,14 @@ function Hello_dolly()
     <?php
         echo wp_nonce_field('hello_dolly_test', 'first_nonce');
     ?>
+    <input type="text" name="my-nonce" id="my-nonce" />
     <input type="submit" value="Okay" />
     </form>
     <?php
 
     if (isset($_POST['first_nonce'])
-        && wp_verify_nonce($_POST['first_nonce'], 'hello_dolly_test')
+        && isset($_POST['my-nonce'])
+        && wp_verify_nonce($_POST['my-nonce'], 'hello_dolly_test')
     ) {
         echo "Yeah<br />";
     }
