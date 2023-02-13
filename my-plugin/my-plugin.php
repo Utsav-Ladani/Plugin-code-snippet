@@ -94,8 +94,20 @@ add_action(
 );
 
 // here filter and action bechaves like same.
-echo apply_filters('my_tag', 'nothing') . '<br />';
-echo do_action('my_tag') . '<br />';
+// echo apply_filters('my_tag', 'nothing') . '<br />';
+// echo do_action('my_tag') . '<br />';
+
+// all
+
+add_action(
+    'all',
+    function ( $hook ) {
+        echo '<br /> run: ' . $hook . '<br />';
+    }
+);
+
+do_action('my_tag', 'Hello');
+
 
 /**
  * Used to view output
