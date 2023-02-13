@@ -188,7 +188,24 @@ function Check_How_Many_Times_Alloptions_run()
     $count++;
     echo 'Run: ' . $count . '<br />';
 }
-add_action('alloptions', 'Check_How_Many_Times_Alloptions_run', 10, 0);
+// add_action('alloptions', 'Check_How_Many_Times_Alloptions_run', 10, 0);
+
+/**
+ * Change the option before is execute.
+ *
+ * @param [type] $pre_option pre option
+ * 
+ * @return void
+ */
+function Wp_Docs_Pre_Filter_option($pre_option)
+{
+    if (! is_home() ) {
+        return $pre_option;
+    }
+
+    return 'My Awesome Homepage';
+}
+add_filter('pre_option_blogname', 'wp_docs_pre_filter_option');
 
 
 /**
