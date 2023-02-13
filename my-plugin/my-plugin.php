@@ -95,11 +95,11 @@ add_action(
 
 // here filter and action bechaves like same.
 // echo apply_filters('my_tag', 'nothing') . '<br />';
-echo do_action('my_tag') . '<br />';
+// echo do_action('my_tag') . '<br />';
 
 // all
 
-// cab be use for quick hook debugging
+// can be use for quick hook debugging
 // add_action(
 //     'all',
 //     function ( $hook ) {
@@ -109,7 +109,24 @@ echo do_action('my_tag') . '<br />';
 
 // do_action('my_tag', 'Hello');
 
+// Hooks: gettext vs gettext_with_context
 
+/**
+ * Undocumented function
+ *
+ * @param [type] $translated_text translated text 
+ * @param [type] $text            text
+ * @param [type] $text_domin      text domain
+ * 
+ * @return string
+ */
+function Check_gettext($translated_text, $text, $text_domin)
+{
+    return $translated_text . '-<br />';
+}
+add_filter('gettext', 'Check_gettext', 10, 3);
+
+echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin');
 
 
 /**
