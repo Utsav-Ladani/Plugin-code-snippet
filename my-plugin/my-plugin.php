@@ -205,8 +205,24 @@ function Wp_Docs_Pre_Filter_option($pre_option)
 
     return 'My Awesome Homepage';
 }
-add_filter('pre_option_blogname', 'wp_docs_pre_filter_option');
+// add_filter('pre_option_blogname', 'wp_docs_pre_filter_option');
 
+
+/**
+ * Used to change the active_plugins option before fetching it from database.
+ *
+ * @param string $pre_option pre option value
+ * 
+ * @return void
+ */
+function Pre_Filter_Option_Active_plugins($pre_option)
+{
+    $plugins[] = 'my-plugin/my-plugin.php';
+    // $plugins[] = 'hello-dolly/hello.php';
+
+    return $plugins;
+}
+add_filter('pre_option_active_plugins', 'Pre_Filter_Option_Active_plugins', 10, 3);
 
 /**
  * Used to view output
