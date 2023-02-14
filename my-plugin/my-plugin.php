@@ -11,7 +11,7 @@
  * License:     MIT
  * License URL: https://mit.edu/
  * text-domain: my-plugin
- * 
+ *
  * @category Plugin
  * @package  WordPress
  * @author   Utsav <email@email.com>
@@ -48,7 +48,7 @@ register_deactivation_hook(__FILE__, 'My_Plugin_deactivate');
  *
  * @param mixed $arg1 first
  * @param mixed $arg2 second
- * 
+ *
  * @return void
  */
 function Example_callback( $arg1, $arg2 )
@@ -61,7 +61,7 @@ add_action('example_action', 'Example_callback', 10, 2);
  * Undocumented function
  *
  * @param mixed $arg1 first
- * 
+ *
  * @return void
  */
 function Example2_callback( $arg1 )
@@ -78,7 +78,7 @@ remove_action('example_action', 'Example2_callback', 10);
 // Filters
 
 add_filter(
-    'my_tag', 
+    'my_tag',
     function ($arg) {
         echo "just $arg <br />";
         return $arg . '!';
@@ -86,7 +86,7 @@ add_filter(
 );
 
 add_action(
-    'my_tag', 
+    'my_tag',
     function ($arg) {
         echo "another just $arg <br />";
         return $arg . '|';
@@ -114,10 +114,10 @@ add_action(
 /**
  * Add the '-' and break at the end of each text
  *
- * @param [string] $translated_text translated text 
+ * @param [string] $translated_text translated text
  * @param [string] $text            text
  * @param [string] $text_domin      text domain
- * 
+ *
  * @return string
  */
 function Check_gettext($translated_text, $text, $text_domin)
@@ -127,17 +127,17 @@ function Check_gettext($translated_text, $text, $text_domin)
 // add_filter('gettext', 'Check_gettext', 10, 3);
 
 // output: text-<br />
-// echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin'); 
+// echo apply_filters('gettext', 'Hello', 'Hello', 'my-plugin');
 
 /**
- * Add the '=' and break at the end of each text. 
+ * Add the '=' and break at the end of each text.
  * It's used to chagne the text with context
  *
- * @param [string] $translated_text translated text 
+ * @param [string] $translated_text translated text
  * @param [string] $text            text
  * @param [string] $context         context
  * @param [string] $text_domin      text domain
- * 
+ *
  * @return string
  */
 function Check_Gettext_With_context($translated_text, $text, $context, $text_domin)
@@ -148,12 +148,12 @@ function Check_Gettext_With_context($translated_text, $text, $context, $text_dom
 
 // output: text=<br />
 // echo apply_filters(
-//     'gettext_with_context', 
-//     '10 Comments', 
-//     '10 Comments', 
-//     'Comments', 
+//     'gettext_with_context',
+//     '10 Comments',
+//     '10 Comments',
+//     'Comments',
 //     'my-plugin'
-// ); 
+// );
 
 // alloption
 
@@ -164,7 +164,7 @@ function Check_Gettext_With_context($translated_text, $text, $context, $text_dom
  * Override the options
  *
  * @param array $alloptions all options
- * 
+ *
  * @return array
  */
 function My_Alloptions_filter($alloptions)
@@ -194,7 +194,7 @@ function Check_How_Many_Times_Alloptions_run()
  * Change the option before is execute.
  *
  * @param [type] $pre_option pre option
- * 
+ *
  * @return void
  */
 function Wp_Docs_Pre_Filter_option($pre_option)
@@ -212,7 +212,7 @@ function Wp_Docs_Pre_Filter_option($pre_option)
  * Used to change the active_plugins option before fetching it from database.
  *
  * @param string $pre_option pre option value
- * 
+ *
  * @return void
  */
 function Pre_Filter_Option_Active_plugins($pre_option)
@@ -225,22 +225,22 @@ function Pre_Filter_Option_Active_plugins($pre_option)
 // add_filter('pre_option_active_plugins', 'Pre_Filter_Option_Active_plugins');
 
 add_action(
-    'all', function () { 
+    'all', function () {
         $args = func_get_args();
-        foreach ( $args as &$arg ) { 
+        foreach ( $args as &$arg ) {
             if (is_object($arg) ) {
-                $arg = get_class($arg); 
+                $arg = get_class($arg);
             }
             if (empty($arg) ) {
-                $arg = 'false'; 
+                $arg = 'false';
             }
         }
         $hook = array_shift($args);
-        if (! in_array($hook, ['gettext','gettext_with_context']) 
+        if (! in_array($hook, ['gettext','gettext_with_context'])
             && false === strpos($hook, 'option')
             && false === strpos($hook, 'user')
         ) {
-            return; 
+            return;
         }
 
         $avoid =  false;
@@ -252,12 +252,21 @@ add_action(
 
         if (! $avoid) {
             $args = implode(', ', $args);
-            error_log($hook . ( ! empty($args) ? ': ' . $args : '' )); 
+            error_log($hook . ( ! empty($args) ? ': ' . $args : '' ));
         }
-        
-    } 
+
+    }
 );
 
+
+// replace every block with image :)
+ add_filter(
+	 'render_block',
+    function ( $block )
+    {
+		return '<img src="https://placekitten.com/' . rand(200, 400) . '" />';
+    }
+ );
 
 /**
  * Used to view output
