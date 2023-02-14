@@ -248,50 +248,50 @@ function Pre_Filter_Option_Active_plugins($pre_option)
 
 
 // add_filter('pre_option_active_plugins', 'Pre_Filter_Option_Active_plugins');
-add_action(
-    'all',
-    function () {
-        $args = func_get_args();
-        foreach ($args as &$arg) {
-            if (is_object($arg)) {
-                $arg = get_class($arg);
-            }
+// add_action(
+//     'all',
+//     function () {
+//         $args = func_get_args();
+//         foreach ($args as &$arg) {
+//             if (is_object($arg)) {
+//                 $arg = get_class($arg);
+//             }
 
-            if (empty($arg)) {
-                $arg = 'false';
-            }
-        }
+//             if (empty($arg)) {
+//                 $arg = 'false';
+//             }
+//         }
 
-        $hook = array_shift($args);
-        if (! in_array($hook, ['gettext', 'gettext_with_context'])
-            && false === strpos($hook, 'option')
-            && false === strpos($hook, 'user')
-        ) {
-            return;
-        }
+//         $hook = array_shift($args);
+//         if (! in_array($hook, ['gettext', 'gettext_with_context'])
+//             && false === strpos($hook, 'option')
+//             && false === strpos($hook, 'user')
+//         ) {
+//             return;
+//         }
 
-        $avoid = false;
-        foreach ($args as &$arg) {
-            if (is_array($arg)) {
-                $avoid = true;
-            }
-        }
+//         $avoid = false;
+//         foreach ($args as &$arg) {
+//             if (is_array($arg)) {
+//                 $avoid = true;
+//             }
+//         }
 
-        if (! $avoid) {
-            $args = implode(', ', $args);
-            error_log($hook.( ! empty($args) ? ': '.$args : '' ));
-        }
-    }
-);
+//         if (! $avoid) {
+//             $args = implode(', ', $args);
+//             error_log($hook.( ! empty($args) ? ': '.$args : '' ));
+//         }
+//     }
+// );
 
 
 // replace every block with image :)
-add_filter(
-    'render_block',
-    function ($block) {
-        return '<img src="https://placekitten.com/'.rand(200, 400).'" />';
-    }
-);
+// add_filter(
+//     'render_block',
+//     function ($block) {
+//         return '<img src="https://placekitten.com/'.rand(200, 400).'" />';
+//     }
+// );
 
 
  /**
