@@ -222,7 +222,42 @@ function Pre_Filter_Option_Active_plugins($pre_option)
 
     return $plugins;
 }
-add_filter('pre_option_active_plugins', 'Pre_Filter_Option_Active_plugins', 10, 3);
+// add_filter('pre_option_active_plugins', 'Pre_Filter_Option_Active_plugins');
+
+add_action(
+    'all', function () { 
+        $args = func_get_args();
+        foreach ( $args as &$arg ) { 
+            if (is_object($arg) ) {
+                $arg = get_class($arg); 
+            }
+            if (empty($arg) ) {
+                $arg = 'false'; 
+            }
+        }
+        $hook = array_shift($args);
+        if (! in_array($hook, ['gettext','gettext_with_context']) 
+            && false === strpos($hook, 'option')
+            && false === strpos($hook, 'user')
+        ) {
+            return; 
+        }
+
+        $avoid =  false;
+        foreach ($args as &$arg) {
+            if (is_array($arg)) {
+                $avoid = true;
+            }
+        }
+
+        if (! $avoid) {
+            $args = implode(', ', $args);
+            error_log($hook . ( ! empty($args) ? ': ' . $args : '' )); 
+        }
+        
+    } 
+);
+
 
 /**
  * Used to view output

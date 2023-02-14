@@ -68,7 +68,7 @@ function Hello_dolly()
 }
 
 // Now we set that function up to execute when the admin_notices action is called.
-add_action('admin_notices', 'Hello_dolly');
+// add_action('admin_notices', 'Hello_dolly');
 
 /**
  * Undocumented function
