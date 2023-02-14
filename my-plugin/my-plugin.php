@@ -14,6 +14,7 @@
  *
  * @category Plugin
  * @package  WordPress
+ * @author   Utsav Ladani <username@example.com>
  * @license  MIT https://mit.edu/
  * @link     http://url.com
  */
