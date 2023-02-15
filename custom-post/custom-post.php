@@ -21,12 +21,13 @@
  */
 
 /**
- * Activation callback.
+ * Activation callback. It flushes the rewrite rules to make sure the custom post type is recognized.
  *
  * @return void
  */
 function activate_custom_post_plugin(): void {
-	// Do something
+	create_post_type();
+	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'activate_custom_post_plugin' );
 
